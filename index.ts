@@ -1,5 +1,10 @@
-const http = require("http");
-const axios = require("axios");
+import {
+  AssetResponse,
+  AxiosAssetResponse,
+  AxiosCollectionResponse,
+  CollectionResponse,
+} from "./types";
+import { axiosClient } from "./axiosClient";
 
 // Replace with your alchemy api key
 const ALCHEMY_API_KEY = "demo";
@@ -9,85 +14,16 @@ const getNFTsForOwnerEndpoint = `https://eth-mainnet.g.alchemy.com/${ALCHEMY_API
 // https://docs.alchemy.com/alchemy/enhanced-apis/nft-api/getnftmetadata
 const getNFTsForOwnerByCollectionEndpoint = `https://eth-mainnet.g.alchemy.com/${ALCHEMY_API_KEY}/v1/getNFTsByCollection/`;
 
-const axiosClient = axios.create({
-  timeout: 10000,
-  httpAgent: new http.Agent({ keepAlive: true }),
-});
-
 /*
-Example asset (NFT)
-
-{
-  "contract":{
-    "address":"0x60e4d786628fea6478f785a6d7e704777c86a7c6"
-  },
-  "id":{
-    "tokenId":"0x00000000000000000000000000000000000000000000000000000000000029c6",
-  },
-  "title":"",
-  "description":"",
-  "externalDomainViewUrl":"https://boredapeyachtclub.com/api/mutants/10694",
-  "media":{
-    "uri":"ipfs://QmaiJ4sVVqBH4fbG6wYTsGXzGyvRTmnZauf68d4ygFuELF"
-  },
-  "alternateMedia":[
-    {
-      "uri":"https://ipfs.io/ipfs/QmaiJ4sVVqBH4fbG6wYTsGXzGyvRTmnZauf68d4ygFuELF"
-    }
-  ],
-  "metadata":{
-    "image":"ipfs://QmaiJ4sVVqBH4fbG6wYTsGXzGyvRTmnZauf68d4ygFuELF"
-  },
-  "timeLastUpdated":"2022-01-23T23:59:55.919Z"
-}
-*/
-
-interface Contract {
-  address: string;
-}
-
-interface Id {
-  tokenId: string;
-}
-
-interface Media {
-  uri: string;
-}
-
-interface Metadata {
-  image: string;
-}
-
-interface Asset {
-  contract: Contract;
-  id: Id;
-  title: string;
-  description: string;
-  externalDomainViewUrl: string;
-  media: Media;
-  alternateMedia: Media[];
-  metadata: Metadata;
-  timeLastUpdated: string;
-}
-
-interface AssetResponse {
-  ownedNfts: Asset[];
-  totalCount: number;
-  pageKey?: string;
-}
-
-interface Collection {
-  contract: Contract;
-  verified: boolean; // true if the contract is verified on OpenSea, false otherwise
-  assets: Asset[];
-}
-
-interface CollectionResponse {
-  collections: Collection[];
-}
-
-/*
- *  Fetches paginated list of NFT's owned by the given address.
+ * Fetches paginated list of NFT's owned by the given address.
+ *
+ * You can use this function to display all of the user's NFTs
+ * in a list view. For example you might have the user connect
+ * their wallet via metamask and then direct them to a page where
+ * they can see all their NFTs. All you have to do is put the
+ * user's wallet address into this function and you will get back
+ * an array of NFTs that you can render. Each NFT will have an
+ * image uri that you can render along with the title of the NFT.
  */
 async function getNFTsForOwner(
   ownerAddress: string,
@@ -98,12 +34,20 @@ async function getNFTsForOwner(
     getUrl = `${getUrl}&pageKey=${pageKey}`;
   }
 
-  const response = await axiosClient.get(getUrl);
+  const response: AxiosAssetResponse = await axiosClient.get(getUrl);
   return response.data;
 }
 
 /*
- *  Fetches paginated list of NFT's owned by the given address only for the given collection.
+ * Fetches paginated list of NFT's owned by the given address only
+ * for the given collection.
+ *
+ * This function is practically the same as getNFTsForOwner
+ * but allows you to only fetch NFTs for the user that belong
+ * to a particular collection. For instance if you have rendered
+ * the NFTs from getNFTsForOwner and allowed the user to tap
+ * into the collection, then you may want to only render NFTs
+ * for that particular collection for the user.
  */
 async function getNFTsForOwnerFilteredByCollection(
   ownerAddress: string,
@@ -115,19 +59,23 @@ async function getNFTsForOwnerFilteredByCollection(
     getUrl = `${getUrl}&pageKey=${pageKey}`;
   }
 
-  const response = await axiosClient.get(getUrl);
+  const response: AxiosAssetResponse = await axiosClient.get(getUrl);
   return response.data;
 }
 
 /*
- *  Fetches NFT's owned by the given address and grouped by collection/contract.
- *  Note that this API is not paginated.
+ * Fetches NFT's owned by the given address and grouped by collection.
+ *
+ * This endpoint allows you to display the user's NFTs organized by
+ * collection rather than as a flat list of images. The response will
+ * be a list of collections and inside those collections will be a
+ * list of NFTs that the user owns for that collection.
  */
 async function getCollectionsForOwner(
   ownerAddress: string,
   maxNFTsPerContract: number = 10
 ): Promise<CollectionResponse> {
-  const response = axiosClient.get(
+  const response: AxiosCollectionResponse = await axiosClient.get(
     `${getNFTsForOwnerByCollectionEndpoint}?owner=${ownerAddress}&maxNFTsPerContract=${maxNFTsPerContract}`
   );
   return response.data;
@@ -145,7 +93,10 @@ async function runExamples(): Promise<void> {
   console.log("\nFirst NFT for second page of getNFTsForOwner");
   console.log(JSON.stringify(secondPage.ownedNfts[0]));
 
-  const firstFilteredPage = await getNFTsForOwnerFilteredByCollection(testOwnerAddress, testContractAddress);
+  const firstFilteredPage = await getNFTsForOwnerFilteredByCollection(
+    testOwnerAddress,
+    testContractAddress
+  );
   console.log("\nFirst NFT for getNFTsForOwnerFilteredByCollection");
   console.log(JSON.stringify(firstFilteredPage.ownedNfts[0]));
 
