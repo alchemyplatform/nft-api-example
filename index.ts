@@ -12,7 +12,7 @@ const ALCHEMY_API_KEY = "demo";
 // https://docs.alchemy.com/alchemy/enhanced-apis/nft-api/getnfts
 const getNFTsForOwnerEndpoint = `https://eth-mainnet.g.alchemy.com/${ALCHEMY_API_KEY}/v1/getNFTs/`;
 // https://docs.alchemy.com/alchemy/enhanced-apis/nft-api/getnftmetadata
-const getNFTsForOwnerByCollectionEndpoint = `https://eth-mainnet.g.alchemy.com/${ALCHEMY_API_KEY}/v1/getNFTsByCollection/`;
+const getNFTsForOwnerByCollectionEndpoint = `https://eth-mainnet.g.alchemy.com/${ALCHEMY_API_KEY}/v1/getNFTsForOwnerByCollection/`;
 
 /*
  * Fetches paginated list of NFT's owned by the given address.
