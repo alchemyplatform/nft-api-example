@@ -8,7 +8,7 @@ Fetches a paginated list of NFT's owned by the given address. You can use this f
 
 Example display
 
-![image](https://user-images.githubusercontent.com/5247707/150714145-30642204-e7ea-47cb-a2e1-ec3616250bc9.png)
+<center><img src="https://user-images.githubusercontent.com/5247707/150714145-30642204-e7ea-47cb-a2e1-ec3616250bc9.png" alt="drawing" width="200"/></center>
 
 Usage
 
@@ -25,7 +25,7 @@ Fetches paginated list of NFT's owned by the given address only for the given co
 
 Example display
 
-![image](https://user-images.githubusercontent.com/5247707/150714183-c887090e-b242-44cc-9f49-3e487790fd74.png)
+<center><img src="https://user-images.githubusercontent.com/5247707/150714183-c887090e-b242-44cc-9f49-3e487790fd74.png" alt="drawing" width="200"/></center>
 
 Usage
 
@@ -46,7 +46,7 @@ Fetches NFT's owned by the given address and grouped by collection. This endpoin
 
 Example display
 
-![image](https://user-images.githubusercontent.com/5247707/150714225-44b5b81a-529d-4d10-b775-e84ff6176336.png)
+<center><img src="https://user-images.githubusercontent.com/5247707/150714225-44b5b81a-529d-4d10-b775-e84ff6176336.png" alt="drawing" width="200"/></center>
 
 Usage
 
