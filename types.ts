@@ -39,7 +39,7 @@ export interface AxiosAssetResponse {
 interface Collection {
   contract: Contract;
   verified: boolean; // true if the contract is verified on OpenSea, false otherwise
-  name: string;
+  name?: string;
   assets: Asset[];
 }
 
