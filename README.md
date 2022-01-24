@@ -33,10 +33,7 @@ Usage
 const ownerAddress = "0x04f5df957ce0405ba0264eca6130161cfaa12571";
 const contractAddress = "0x60e4d786628fea6478f785a6d7e704777c86a7c6";
 
-const response = await getNFTsForOwner(
-	ownerAddress,
-	contractAddress,
-);
+const response = await getNFTsForOwner(ownerAddress, contractAddress);
 console.log(response.ownedNfts);
 ```
 

@@ -40,7 +40,7 @@ interface Collection {
   contract: Contract;
   verified: boolean; // true if the contract is verified on OpenSea, false otherwise
   name?: string;
-  assets: Asset[];
+  nfts: Asset[];
 }
 
 export interface CollectionResponse {
