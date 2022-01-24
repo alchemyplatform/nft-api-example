@@ -44,7 +44,6 @@ Example asset (NFT)
 
 interface Contract {
   address: string;
-  verified: boolean;
 }
 
 interface Id {
@@ -79,6 +78,7 @@ interface AssetResponse {
 
 interface Collection {
   contract: Contract;
+  verified: boolean; // true if the contract is verified on OpenSea, false otherwise
   assets: Asset[];
 }
 
