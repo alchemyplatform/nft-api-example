@@ -1,8 +1,8 @@
 ### Overview
 
-This repo demonstrates three ways to use the Alchemy NFT api.
+This repo demonstrates three ways to use the Alchemy NFT API.
 
-### Fetch all the NFTs that belong to an address.
+### (Recents View) Fetch all the NFTs that belong to an address.
 
 Fetches a paginated list of NFT's owned by the given address. You can use this function to display all of the user's NFTs in a list view. For example you might have the user connect their wallet via metamask and then direct them to a page where they can see all their NFTs. All you have to do is put the user's wallet address into this function and you will get back an array of NFTs that you can render. Each NFT will have an image uri that you can render along with the title of the NFT.
 
@@ -19,7 +19,7 @@ const response = await getNFTsForOwner(ownerAddress);
 console.log(firstPage.ownedNfts);
 ```
 
-### Fetch all the NFTs that belong to an address filtered by a particular contract/collection.
+### (Individual Collection View) Fetch all the NFTs that belong to an address filtered by a particular contract/collection.
 
 Fetches paginated list of NFT's owned by the given address only for the given collection. This function is practically the same as getNFTsForOwner but allows you to only fetch NFTs for the user that belong to a particular collection. For instance if you have rendered the NFTs from getNFTsForOwner and allowed the user to tap into the collection, then you may want to only render NFTs for that particular collection for the user.
 
@@ -40,9 +40,9 @@ const response = await getNFTsForOwner(
 console.log(response.ownedNfts);
 ```
 
-### Fetch all collections for which an address owns an NFT.
+### (Collections View) Fetch all collections for which an address owns an NFT.
 
-Fetches NFT's owned by the given address and grouped by collection. This endpoint allows you to display the user's NFTs organized by collection rather than as a flat list of images. The response will be a list of collections and inside those collections will be a list of NFTs that the user owns for that collection.
+Fetches NFT's owned by the given address and grouped by collection. This endpoint allows you to display the user's NFTs organized by collection rather than as a flat list of images. The response will be a list of collections and inside those collections will be a list of NFTs that the user owns for that collection. Each collection also has a `name` and `verified` field for optional display.
 
 Example display
 
