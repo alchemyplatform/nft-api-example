@@ -6,8 +6,9 @@ interface Id {
   tokenId: string;
 }
 
-interface Media {
-  uri: string;
+export interface Uri {
+  raw: string;
+  gateway: string;
 }
 
 interface Metadata {
@@ -19,9 +20,8 @@ interface Asset {
   id: Id;
   title: string;
   description: string;
-  externalDomainViewUrl: string;
-  media: Media;
-  alternateMedia: Media[];
+  tokenUri: Uri;
+  media: Uri[];
   metadata: Metadata;
   timeLastUpdated: string;
 }
