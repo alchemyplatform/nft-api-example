@@ -15,6 +15,18 @@ interface Metadata {
   image: string;
 }
 
+export interface SpannerNonNullStringElem {
+  name: string;
+  value: string;
+}
+
+export type SpannerLogRow = [
+  SpannerNonNullStringElem,
+  SpannerNonNullStringElem,
+  SpannerNonNullStringElem,
+  SpannerNonNullStringElem
+];
+
 interface Asset {
   contract: Contract;
   id: Id;
@@ -30,6 +42,13 @@ export interface AssetResponse {
   ownedNfts: Asset[];
   totalCount: number;
   pageKey?: string;
+}
+
+export interface AssetRow {
+  ownerAddress: string;
+  contractAddress: string;
+  tokenId: string;
+  balance: string;
 }
 
 export interface AxiosAssetResponse {

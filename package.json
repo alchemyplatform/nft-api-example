@@ -12,6 +12,7 @@
     "@types/node": "^16.7.2",
     "@typescript-eslint/eslint-plugin": "^5.8.1",
     "@typescript-eslint/parser": "^5.8.1",
+    "@google-cloud/spanner": "^5.16.2",
     "dotenv": "^10.0.0",
     "eslint": "^8.6.0",
     "eslint-config-airbnb-base": "^15.0.0",
